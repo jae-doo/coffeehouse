@@ -15,7 +15,6 @@ import java.util.Objects;
 /**
  * @author springrunner.kr@gmail.com
  */
-@Component
 class BarCounterHttpClient implements BarCounter {
     
     private final RestTemplate restTemplate;

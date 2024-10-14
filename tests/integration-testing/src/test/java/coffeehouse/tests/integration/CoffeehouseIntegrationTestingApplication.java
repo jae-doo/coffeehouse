@@ -1,5 +1,6 @@
 package coffeehouse.tests.integration;
 
+import coffeehouse.libraries.message.ObservableChannel;
 import coffeehouse.modules.brew.EnableBrewModule;
 import coffeehouse.modules.brew.domain.OrderSheetId;
 import coffeehouse.modules.brew.domain.entity.OrderSheet;
@@ -19,6 +20,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.messaging.MessageChannel;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -50,6 +52,11 @@ public class CoffeehouseIntegrationTestingApplication {
             orderRepository.save(new Order(new OrderId(acceptedOrderIdValue), new UserAccountId(userAccountIdValue), OrderStatus.ACCEPTED));
             orderSheetRepository.save(new OrderSheet(new OrderSheetId(confirmedOrderSheetIdValue), new coffeehouse.modules.brew.domain.OrderId(acceptedOrderIdValue), OrderSheetStatus.CONFIRMED));
         };
+    }
+
+    @Bean
+    MessageChannel barCounterChannel() {
+        return new ObservableChannel();
     }
     
     @Bean
